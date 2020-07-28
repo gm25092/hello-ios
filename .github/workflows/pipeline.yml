@@ -1,0 +1,16 @@
+name: CI
+
+on: [push]
+
+jobs:
+
+  Test:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: List available Xcode versions
+      run: ls /Applications | grep Xcode
+    - name: Select Xcode
+      run: sudo xcode-select -switch /Applications/Xcode_11.4.app && /usr/bin/xcodebuild -version
+    - name: Run build
+      run: xcodebuild build -scheme HelloiOS -project HelloiOS.xcodeproj
